@@ -1,101 +1,73 @@
-#Отчёт 3
+#Отчёт 7
 ## Савинков Глеб
 ### 8310
-[Ссылка на проект1.](https://www.tinkercad.com/things/1HfEe7XpPT2-magnificent-jarv-gaaris/editel?sharecode=hFOXUq9evxB-SlTqL4qKQlRqyuIln7tPLWTg5tSujKg)
-![Magnificent Jarv-Gaaris](https://user-images.githubusercontent.com/114941628/194938036-213ca7ff-71c8-4935-a5e8-61e2fa2d9c3d.png)
-[Ссылка на проект2.](https://www.tinkercad.com/things/dC2ChQw5K4X-smooth-uusam-wolt/editel?sharecode=1t64SrozFPB6dexZvOxvNnffXOI1t4rJ2hSrkqhM6pg)
-[Ссылка на проект3.](https://www.tinkercad.com/things/gWBXgQVSNMn-incredible-kup-snicket/editel?sharecode=xfDCuFw4aoPrtuRoh1FbFxyzEnsJ_3xlM6-0_zMlX48)
-![Incredible Kup-Snicket](https://user-images.githubusercontent.com/114941628/194938859-7c4051ea-f07f-4ee2-bb6f-a154f6cbf23d.png)
+[Ссылка на проект1.](https://www.tinkercad.com/things/f7weJwLzXu9-funky-lahdi-jofo/editel?sharecode=EHinjJiCk7kAWqEPRT9gWICpr82ozAHVDEFAgR1Y1HU)
+![Funky Lahdi-Jofo](https://user-images.githubusercontent.com/114941628/197576978-a98437a4-53eb-465b-9eb7-b56ab3b8a0ee.png)
 ## Листинг программы
 
 ///1
 ```C++
-byte i;
-byte LedMin = 2;
-byte LedMax = 11;
-void setup()
+#include<Keypad.h>
+const byte ROWS = 4; 
+const byte COLS = 4; 
+char hexaKeys[ROWS][COLS] = 
 {
-  for (i=LedMin;i<=LedMax;i=i+1)
+{'D','#','0','*'},
+{'C','9','8','7'},
+{'B','6','5','4'},
+{'A','3','2','1'}
+};
+
+
+byte rowPins[ROWS] = {7, 6, 5, 4}; 
+byte colPins[COLS] = {11, 10, 9, 8}; 
+Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
+void setup(){
+Serial.begin(9600);
+  pinMode(3, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(1, OUTPUT);
+  pinMode(0, OUTPUT);
+  pinMode(13, OUTPUT);
+}
+void loop(){
+char customKey = customKeypad.getKey(); 
+  if (customKey){
+Serial.println(customKey);
+}
+   if (customKey=='8')
+   {
+    digitalWrite(3, HIGH);
+      delay(500);
+   }
+  else
   {
-    pinMode(i,OUTPUT);
+    digitalWrite(3, LOW);
+     }
+
+  if (customKey=='9')
+  {
+    digitalWrite(2, HIGH);
+    delay(500);
   }
+  else
+  {
+    digitalWrite(2, LOW);
+  }
+    
+   if (customKey=='7')
+   {
+    digitalWrite(13, HIGH);
+     delay(500);
+   }
+  else
+  {
+    digitalWrite(13, LOW);
+  }
+
 }
 
-void loop()
-{
- for (i=LedMin;i<=LedMax;i=i+1)
- {
-   digitalWrite(i,HIGH);
-   delay(50);
- }
-  for (i=LedMax;i>=LedMin;i--)
-  {
-    digitalWrite(i,LOW);
-   delay(50);
-  }
-}
-```
-
-///2
-```C++
-byte i;
-byte LedMin = 2;
-byte LedMax = 11;
-void setup()
-{
-  for (i=LedMin;i<=LedMax;i=i+2)
-  {
-    pinMode(i,OUTPUT);
-  }
-}
-
-void loop()
-{
- for (i=LedMin;i<=LedMax;i=i+2)
- {
-   digitalWrite(i,HIGH);
-   delay(50);
- }
-  for (i=LedMax;i>=LedMin;i--)
-  {
-   digitalWrite(i,LOW);
-   delay(50);
-  }
-}
-```
-
-///3
-```C++
-byte i; // задаём переменную для цифровых выходов
-byte LedMin = 1; // первый пин со светодиодом
-byte LedMax = 11; // последний пин со светодиодом
-void setup()
-{
-// задаём пин с 1 по 11, как выход (OUTPUT)
-  for (i=LedMin;i<=LedMax;i++)
-  {
-    pinMode(i,OUTPUT);
-  }
-}
-void loop()
-{
-// последовательно зажигаем светодиоды
- for (i=LedMin;i<=LedMax;i++)
- {
-   digitalWrite(i,HIGH);
-   delay(50);
- }
- // последовательно гасим светодиоды
- for (i=LedMin;i<=LedMax;i++)
-  {
-   digitalWrite(i,LOW);
-   delay(50);
-  }
-}
 ```
 
 ## Пояснение
-В данном случае, мы меняем плату и подключение портов в таком порядке, чтобы наша программа работала и выполняла задуманные действия в соответствии с порядком выполнения.
-
-## Блок схема 
-![Блок 2](https://user-images.githubusercontent.com/114941628/194953681-72061e57-6462-4de5-b7ef-76d5630e8db1.png)
+В данной работе нам надо пересобрать панель клавиатуры в коде, после чего подлеючить на них включение и выключение светодиодов.
