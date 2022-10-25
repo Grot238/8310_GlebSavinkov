@@ -1,73 +1,108 @@
-#Отчёт 7
+#Отчёт 8
 ## Савинков Глеб
 ### 8310
-[Ссылка на проект1.](https://www.tinkercad.com/things/f7weJwLzXu9-funky-lahdi-jofo/editel?sharecode=EHinjJiCk7kAWqEPRT9gWICpr82ozAHVDEFAgR1Y1HU)
-![Funky Lahdi-Jofo](https://user-images.githubusercontent.com/114941628/197576978-a98437a4-53eb-465b-9eb7-b56ab3b8a0ee.png)
+[Ссылка на проект1.](https://www.tinkercad.com/things/7qC2KFWbQne-surprising-fyyran-krunk/editel?sharecode=s_BiZyJX5rcA_rYMou-nM4O8_FpSxXRZ8htfSUGXYpE)
+![Surprising Fyyran-Krunk](https://user-images.githubusercontent.com/114941628/197868388-fd8eb787-df73-4562-9a12-09b2a29ef964.png)
 ## Листинг программы
 
 ///1
 ```C++
+#include<LiquidCrystal.h>
 #include<Keypad.h>
-const byte ROWS = 4; 
-const byte COLS = 4; 
-char hexaKeys[ROWS][COLS] = 
+
+int i;
+LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+
+const byte ROWS = 3;
+const byte COLS = 3;
+char hexaKeys[ROWS][COLS] =
 {
-{'D','#','0','*'},
-{'C','9','8','7'},
-{'B','6','5','4'},
-{'A','3','2','1'}
+{'1','4','7',},
+{'2','5','8',},
+{'3','6','9',},
+
 };
+byte rowPins[ROWS] = {4, 3, 2 };
+byte colPins[COLS] = {7, 6, 5 };
 
-
-byte rowPins[ROWS] = {7, 6, 5, 4}; 
-byte colPins[COLS] = {11, 10, 9, 8}; 
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
-void setup(){
-Serial.begin(9600);
-  pinMode(3, OUTPUT);
-  pinMode(2, OUTPUT);
-  pinMode(1, OUTPUT);
-  pinMode(0, OUTPUT);
-  pinMode(13, OUTPUT);
-}
-void loop(){
-char customKey = customKeypad.getKey(); 
-  if (customKey){
-Serial.println(customKey);
-}
-   if (customKey=='8')
-   {
-    digitalWrite(3, HIGH);
-      delay(500);
-   }
-  else
-  {
-    digitalWrite(3, LOW);
-     }
 
-  if (customKey=='9')
+void setup() 
+{
+lcd.begin(16, 2);
+}
+void loop() 
+{
+  char customKey = customKeypad.getKey();
+  switch (customKey)
   {
-    digitalWrite(2, HIGH);
-    delay(500);
+    case '1':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('1');
+    i=1;
+    break;
+    case '2':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('2');
+    i=2;
+    break;
+    case '3':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('3');
+    i=3;
+    break;
+    case '4':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('4');
+    i=4;
+    break;
+    case '5':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('5');
+    i=5;
+    break;
+    case '6':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('6');
+    i=6;
+    break;
+    case '7':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('7');
+    i=7;
+    break;
+    case '8':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('8');
+    i=8;
+    break;
+    case '9':
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print('9');
+    i=9;
+    break;
+  }
+  if ( i%2==0)
+  {
+    lcd.setCursor(0, 1);
+    lcd.print("Chetnoe");
   }
   else
   {
-    digitalWrite(2, LOW);
+    lcd.setCursor(0, 1);
+    lcd.print("Ne Chetnoe");
   }
-    
-   if (customKey=='7')
-   {
-    digitalWrite(13, HIGH);
-     delay(500);
-   }
-  else
-  {
-    digitalWrite(13, LOW);
-  }
-
 }
-
 ```
 
 ## Пояснение
-В данной работе нам надо пересобрать панель клавиатуры в коде, после чего подлеючить на них включение и выключение светодиодов.
+В работе я использовал элементы седьмой работы, я урезал значения кейборда до более удобных, вывод на жк экран проводится по адресу строк, у меня были проблемы с работой библиотек (по непонятным прчинам он ругался на их использование).
